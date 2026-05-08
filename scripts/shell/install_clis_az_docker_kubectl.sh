@@ -11,6 +11,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/dock
 sudo dnf install -y docker-ce docker-ce-cli containerd.io && \
 sudo systemctl start docker && \
 sudo systemctl enable docker && \
+sudo usermod -aG docker $USER && \
 docker version && \
 
 # ── 3. kubectl ──────────────────────────────────────────────────
@@ -25,7 +26,4 @@ EOF
 sudo dnf install -y kubectl && \
 kubectl version --client && \
 
-# ── 4. Azure login & ACR ────────────────────────────────────────
-sudo az login --identity && \
-sudo az acr login --name ${local.acr_name}
 '
