@@ -42,6 +42,20 @@ az aks nodepool add \
   --max-count 1 \
   --tags $TAG
 
+az aks nodepool add \
+  --resource-group $RG \
+  --cluster-name $CLUSTER \
+  --name cpunp \
+  --mode User \
+  --node-count 1 \
+  --node-vm-size Standard_D4s_v5 \
+  --node-osdisk-size 32 \
+  --os-sku AzureLinux \
+  --enable-cluster-autoscaler \
+  --min-count 1 \
+  --max-count 1 \
+  --labels workload=cpu \
+  --tags $TAG
 
 az aks get-credentials \
   --resource-group $RG \
