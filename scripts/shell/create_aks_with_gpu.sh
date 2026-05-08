@@ -50,3 +50,6 @@ az aks get-credentials \
 # Once a GPU pod is scheduled and node spins up:
 kubectl get nodes -o wide
 kubectl describe node <gpu-node-name> | grep -A 10 "Allocatable"
+
+# update nodepool
+az aks nodepool update --update-cluster-autoscaler --min-count 1 --max-count 1 --resource-group $RG --name gpunp --cluster-name $CLUSTER
