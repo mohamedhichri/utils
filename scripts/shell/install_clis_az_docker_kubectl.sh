@@ -24,5 +24,7 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/repodata/repomd.xml.key
 EOF
 sudo dnf install -y kubectl && \
 kubectl version --client && 
-
 '
+
+
+sudo usermod -aG docker dataiku
