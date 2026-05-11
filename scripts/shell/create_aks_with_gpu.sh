@@ -57,6 +57,8 @@ az aks nodepool add \
   --labels workload=cpu \
   --tags $TAG
 
+az login --identity
+
 az aks get-credentials \
   --resource-group $RG \
   --name $CLUSTER
