@@ -76,3 +76,6 @@ az aks update \
   --resource-group $RG \
   --name $CLUSTER \
   --attach-acr $ACR
+
+
+az acr login --name mhichriazcontainerregistry
