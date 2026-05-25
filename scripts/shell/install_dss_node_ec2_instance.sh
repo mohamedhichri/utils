@@ -1,4 +1,5 @@
 DKU_VERSION="14.5.0"
+DKU_PATH="/data/DATA_DIR/"
 
 sudo mkdir -p /data/DATA_DIR
 
@@ -30,16 +31,16 @@ DKU_VERSION="14.5.0"
 sudo -i "/home/dataiku/dataiku-dss-${DKU_VERSION}/scripts/install/install-deps.sh"
 
 # Run installer, with data directory $HOME/dss_data and base port 10000
-dataiku-dss-${DKU_VERSION}/installer.sh -d /home/dataiku/dss_data -l /home/dataiku/license.json -p 10000
+dataiku-dss-${DKU_VERSION}/installer.sh -d ${DKU_PATH} -l /home/dataiku/license.json -p 10000
 
 # Manually start DSS, using the command shown by the installer step
-/home/dataiku/dss_data/bin/dss start
+${DKU_PATH}/bin/dss start
 
-/home/dataiku/dss_data/bin/dss stop
+${DKU_PATH}/bin/dss stop
 
 
 # Create a system service, using the command shown by the previous step
-sudo "/home/dataiku/dataiku-dss-${DKU_VERSION}/scripts/install/install-boot.sh" "/home/dataiku/dss_data" dataiku
+sudo "/home/dataiku/dataiku-dss-${DKU_VERSION}/scripts/install/install-boot.sh" "${DKU_PATH}" dataiku
 #
 # Start the system service
 sudo systemctl start dataiku
