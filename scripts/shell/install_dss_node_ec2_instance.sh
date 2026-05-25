@@ -1,5 +1,11 @@
 DKU_VERSION="14.5.0"
 
+sudo mkdir -p /data/DATA_DIR
+
+sudo chmod -R 755 /data/
+
+sudo chown -R dataiku /data/DATA_DIR/
+
 sudo useradd -m -u 12345 -s /bin/bash dataiku
 
 sudo passwd -l dataiku
