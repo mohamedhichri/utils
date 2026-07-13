@@ -2,7 +2,7 @@
 set -e
 
 PGSQL_VERSION=16
-PGSQL_DATABASE=dssdesigndbtestenv
+PGSQL_DATABASE=dssdesigndb
 PGSQL_USER=dssruntimedbuser
 # Password recommended to change
 PGSQL_PWD=D@taikuP4ssF0rDB!
@@ -13,16 +13,14 @@ PGDATA_DIR=/app/pgsql/data
 function lineinfile() { line=${2//\//\\/} ; sed -i -e '/'"${1//\//\\/}"'/{s/.*/'"${line}"'/;:a;n;ba;q};$a'"${line}" "$3" ; }
 
 # This script is dedicated to postgresql installation
-
 echo "---- Enable PostgreSQL module ----"
-dnf -y module reset postgresql
-dnf -y module enable postgresql:${PGSQL_VERSION}
+dnf -y install @postgresql:${PGSQL_VERSION}
 
 echo "---- Install PostgreSQL packages ----"
-dnf -y install postgresql-server python3-psycopg2 postgresql-jdbc policycoreutils-python-utils
+dnf -y install postgresql-server python3-psycopg2 postgresql-jdbc
 
 echo "---- Stop PostgreSQL service (in case it was previously initialized) ----"
-systemctl stop postgresql || true
+systemctl stop postgresql
 
 echo "---- Create data directory on /app ----"
 mkdir -p "${PGDATA_DIR}"
@@ -44,7 +42,8 @@ EOF
 systemctl daemon-reload
 
 echo "---- Initialize PostgreSQL database in ${PGDATA_DIR} ----"
-/usr/bin/postgresql-setup --initdb --pgdata="${PGDATA_DIR}"
+export PGDATA="${PGDATA_DIR}"
+/usr/bin/postgresql-setup --initdb
 
 echo "---- backup ${PGDATA_DIR}/pg_hba.conf ----"
 cp "${PGDATA_DIR}/pg_hba.conf" "${PGDATA_DIR}/pg_hba.conf.bck"
