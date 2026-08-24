@@ -1,5 +1,7 @@
-DKU_VERSION="14.5.0"
+DKU_VERSION="14.3.2"
 DKU_PATH="/data/DATA_DIR/"
+
+sudo yum install wget -y
 
 sudo mkdir -p /data/DATA_DIR
 
@@ -12,6 +14,9 @@ sudo useradd -m -u 12345 -s /bin/bash dataiku
 sudo passwd -l dataiku
 
 sudo su - dataiku
+
+DKU_VERSION="14.3.2"
+DKU_PATH="/data/DATA_DIR/"
 
 pwd
 
@@ -27,7 +32,7 @@ chmod a+x .
 umask 22
 
 #switch back to ec2-user
-DKU_VERSION="14.5.0"
+DKU_VERSION="14.3.2"
 sudo -i "/home/dataiku/dataiku-dss-${DKU_VERSION}/scripts/install/install-deps.sh"
 
 # Run installer, with data directory $HOME/dss_data and base port 10000
